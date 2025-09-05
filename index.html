@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lane’s Digital Shack</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    @font-face {
-      font-family: "PixelFont";
-      src: url("fonts/pixel-font.ttf") format("truetype");
-    }
-    body {
-      font-family: "PixelFont", sans-serif;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>🌟 Welcome to the Past 🌟</title>
+  <link href="https://fonts.googleapis.com/css?family=VT323|Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
+  <!-- TV Turn-On Intro Overlay -->
+  <div id="tv-intro">
+    <div class="tv-flash"></div>
+    <div class="tv-glow"></div>
+    <span class="tv-text">SURF CORE BOOTING...</span>
+  </div>
+
   <header>
-    <h1>🖥️ Welcome to Lane’s Digital Shack 💾</h1>
-    <p class="tagline">A retro haven for creativity and chaos</p>
+    <h1>My Retro Window</h1>
+    <span class="tagline">Step into a world of pixelated nostalgia</span>
+    <nav>
+      <a href="#gifs">GIFs</a>
+      <a href="#stories">Stories</a>
+      <a href="#experiments">Experiments</a>
+    </nav>
   </header>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="pages/blog.html">Blog</a>
-    <a href="pages/gallery.html">Gallery</a>
-    <a href="pages/about.html">About</a>
-  </nav>
+  <section id="gifs" class="gif-zone">
+    <img src="https://media.giphy.com/media/Nx0rz3jtxtEre/giphy.gif" alt="Retro GIF" />
+    <!-- Add your favorite vaporwave/surf GIFs here -->
+  </section>
 
-  <!-- Main Content -->
-  <main>
-    <section class="intro">
-      <h2>🌟 Welcome to the Past 🌟</h2>
-      <p>Step into a world of pixelated nostalgia, where every corner is filled with GIFs, stories, and experiments.</p>
-    </section>
+  <div class="window" style="top:140px; left:80px;">
+    <div class="title-bar">
+      <span>Express Yourself</span>
+      <button onclick="document.querySelector('.window').style.display='none';">X</button>
+    </div>
+    <div class="content">
+      <p>This is a draggable window. Move it around and have fun!</p>
+      <p>Share your rad nostalgia here!</p>
+    </div>
+  </div>
 
-    <!-- Draggable Window -->
-    <section class="window">
-      <div class="title-bar">
-        <span>My Retro Window</span>
-        <button onclick="closeWindow()">X</button>
-      </div>
-      <div class="content">
-        <p>This is a draggable window. Move it around and have fun!</p>
-      </div>
-    </section>
+  <marquee>🌊 Surf the vibes. Home of cool experiments and stories. 🌴</marquee>
 
-    <!-- GIF Zone -->
-    <section class="gif-zone">
-      <h2>🔥 Cool GIF Zone 🔥</h2>
-      <marquee behavior="alternate" scrollamount="10">✨ Welcome to the GIF Zone! ✨</marquee>
-      <img src="images/under_construction.gif" alt="Under Construction">
-      <img src="images/surfing.gif" alt="Surf GIF">
-      <img src="images/trippy.gif" alt="Trippy pattern">
-    </section>
-  </main>
-
-  <!-- Footer -->
   <footer>
-    <p>© 2025 Lane Gray | <a href="https://neocities.org">Inspired by Neocities</a></p>
+    <span>2025 &copy; Surf Core Life | <a href="#">Contact</a></span>
   </footer>
 
+  <script src="tv-intro.js"></script>
   <script>
-    function closeWindow() {
-      document.querySelector('.window').style.display = 'none';
-    }
+    // Simple drag functionality for the window
+    const win = document.querySelector('.window');
+    const bar = win.querySelector('.title-bar');
+    let isDown = false, offset = [0,0];
+    bar.addEventListener('mousedown', function(e) {
+      isDown = true;
+      offset = [
+        win.offsetLeft - e.clientX,
+        win.offsetTop - e.clientY
+      ];
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (isDown) {
+        win.style.left = (e.clientX + offset[0]) + 'px';
+        win.style.top = (e.clientY + offset[1]) + 'px';
+      }
+    });
+    document.addEventListener('mouseup', function() { isDown = false; });
   </script>
 </body>
 </html>
