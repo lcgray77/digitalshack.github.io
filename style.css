@@ -1,17 +1,1 @@
-body {
-    background: url('https://www.animatedimages.org/data/media/56/animated-surfing-image-0014.gif') repeat;
-    color: #00FF00;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-.flashing-text {
-    animation: flash 1s infinite;
-}
-@keyframes flash {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-.clickable-gif {
-    position: absolute;
-    cursor: pointer;
-}
+
