@@ -128,40 +128,131 @@ body {
   justify-content: center;
   overflow: hidden;
   flex-direction: column;
-  animation: tv-fadeout 1.6s forwards 1.4s;
+  animation: tv-fadeout 1.6s forwards 2.7s;
 }
-.tv-flash {
-  width: 100vw;
-  height: 6vw;
-  background: linear-gradient(to bottom, #fff 40%, #d1fcd3 80%, transparent 100%);
-  opacity: 0.78;
-  border-radius: 30% / 30%;
-  animation: tv-flash-anim 1.2s cubic-bezier(0.4,0,0.8,0) 0.2s forwards;
+.tv-frame {
+  position: relative;
+  width: 520px;
+  height: 400px;
+  background: #222;
+  border-radius: 32px;
+  box-shadow: 0 0 80px 20px #000, 0 0 0 12px #333 inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.tv-glow {
-  width: 100vw;
-  height: 100vh;
-  box-shadow: 0 0 80px 45px #fff inset;
-  opacity: 0;
-  animation: tv-glow-anim 1s ease 0.7s forwards;
+.tv-bezel {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 32px;
+  border: 16px solid #444;
+  box-shadow: 0 0 0 8px #222 inset, 0 0 32px 8px #000;
+  pointer-events: none;
+}
+.tv-screen {
+  position: absolute;
+  top: 32px; left: 32px;
+  width: 456px; height: 336px;
+  background: #222;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 60px 10px #0ff2, 0 0 0 8px #222 inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tv-clip {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  opacity: 1;
+  animation: tv-clip-fade 1.2s ease 1.5s forwards;
+}
+@keyframes tv-clip-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.tv-static {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(0deg, #fff1 0 2px, #0001 2px 4px);
+  opacity: 0.18;
+  pointer-events: none;
+  animation: tv-static-anim 0.18s infinite linear;
+}
+@keyframes tv-static-anim {
+  0% { filter: blur(0.5px); }
+  50% { filter: blur(2px); }
+  100% { filter: blur(0.5px); }
+}
+.tv-scanlines {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(180deg, transparent 0 6px, #0002 6px 8px);
+  opacity: 0.22;
+  pointer-events: none;
 }
 .tv-text {
+  position: absolute;
+  bottom: 18px;
+  left: 0; width: 100%;
   font-size: 2.8rem;
   color: #05ffb8;
   font-family: 'Share Tech Mono', monospace;
   text-shadow: 0 0 15px #0ff, 0 0 8px #fff;
   letter-spacing: 7px;
   opacity: 0.97;
-  animation: tv-text-fade 0.7s cubic-bezier(0.8,0,0.6,1) 1s forwards;
+  animation: tv-text-fade 0.7s cubic-bezier(0.8,0,0.6,1) 2.1s forwards;
+  text-align: center;
 }
 .surf-wave {
   position: absolute;
   bottom: 20%;
+  left: 0;
   width: 100%;
   height: 8rem;
   background: repeating-radial-gradient(circle at bottom center, #2ec6ff44 3%, transparent 10%);
   animation: wave-move 1.5s linear infinite alternate;
   z-index: 1;
+}
+.tv-flash {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 16vh;
+  background: linear-gradient(to bottom, #fff 40%, #d1fcd3 80%, transparent 100%);
+  opacity: 0.78;
+  border-radius: 30% / 30%;
+  animation: tv-flash-anim 1.2s cubic-bezier(0.4,0,0.8,0) 0.2s forwards;
+}
+.tv-glow {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  box-shadow: 0 0 80px 45px #fff inset;
+  opacity: 0;
+  animation: tv-glow-anim 1s ease 0.7s forwards;
+}
+.tv-knobs {
+  position: absolute;
+  right: -32px;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.tv-knob {
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 40% 40%, #aaa 0%, #444 80%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px #222 inset, 0 0 2px #fff;
+  border: 3px solid #222;
 }
 /* Animations */
 @keyframes tv-flash-anim {
