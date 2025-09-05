@@ -4,27 +4,18 @@
   <meta charset="UTF-8">
   <title>Panic Webamp</title>
   <style>
-    body {
-      margin: 0;
-      background: black;
-    }
-    #webamp-container {
-      width: 400px;
-      height: 400px;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-    }
+    body { margin: 0; background: black; }
+    #webamp-container { position: fixed; bottom: 20px; right: 20px; }
   </style>
 </head>
 <body>
 
   <div id="webamp-container"></div>
 
-  <!-- Webamp JS -->
+  <!-- Webamp -->
   <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
-    const songFiles = [
+    const songs = [
       "02 Disco.mp3",
       "03 Wondering.mp3",
       "04 Greta.mp3",
@@ -37,17 +28,19 @@
       "20 Pickin' Up The Pieces.mp3"
     ];
 
-    const initialTracks = songFiles.map(file => ({
+    const tracks = songs.map(file => ({
       metaData: { artist: "Widespread Panic", title: file.replace(".mp3","") },
-      url: `music/${file}`
+      url: "music/" + file
     }));
 
-    const webamp = new Webamp({ initialTracks });
+    const webamp = new Webamp({ initialTracks: tracks });
     webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
+
 
 
 
