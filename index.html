@@ -2,68 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Panic Webamp</title>
+  <title>Lane's Panic & Surf World</title>
+
+  <!-- Webamp CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.css">
+
   <style>
-    body { margin: 0; background: black; }
-    #webamp-container { position: fixed; bottom: 20px; right: 20px; }
+    /* General page styles */
+    body {
+      margin: 0;
+      background: black;
+      font-family: 'Courier New', monospace;
+      color: #0f0;
+      overflow-x: hidden;
+    }
+
+    /* Intro overlay */
+    #tv-intro {
+      position: fixed;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      background:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .tv-frame {
+      width: 480px;
+      height: 360px;
+      border: 20px solid #222;
+      border-radius: 10px;
+      box-shadow: 0 0 60px #0f0 inset;
+      background: black;
+      position: relative;
+      overflow: hidden;
+      transform: scale(1.05) rotate(0.2deg); /* slight tilt/fisheye effect */
+    }
+
+    .tv-screen {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: flicker 0.08s infinite alternate;
+      filter: contrast(1.3) brightness(1.2) blur(0.7px);
+    }
+
+    .scanlines {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: repeating-linear-gradient(
+        rgba(0,0,0,0.1) 0px,
+        rgba(0,0,0,0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events:none;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.85; }
+    }
+
+    .fade-out {
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity:0; visibility:hidden; }
+    }
+
+    /* Homepage container */
+    #homepage {
+      display: none; /* hidden initially under intro */
+      padding: 20px;
+    }
+
+    /* Webamp container */
+    #webamp-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 400px;
+      height: 400px;
+    }
   </style>
 </head>
 <body>
 
-<div id="webamp-container"></div>
+  <!-- Retro TV Intro -->
+  <div id="tv-intro">
+    <div class="tv-frame">
+      <img src="your-tv-gif.gif" alt="Retro TV" class="tv-screen">
+      <div class="scanlines"></div>
+    </div>
+  </div>
 
-<!-- Webamp JS -->
-<script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
-<script>
-  const tracks = [
-    {
-      metaData: { artist: "Widespread Panic", title: "02 Disco" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_02_DISCO"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "03 Wondering" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_03_WONDERING"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "04 Greta" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_04_GRETA"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "07 I'm Not Alone" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_07_IM_NOT_ALONE"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "14 Jack" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_14_JACK"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "15 Suprise Valley" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_15_SUPRISE_VALLEY"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "16 Papa's Home" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_16_PAPAS_HOME"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "18 Tie Your Shoes" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_18_TIE_YOUR_SHOES"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "19 Papa's Home" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_19_PAPAS_HOME"
-    },
-    {
-      metaData: { artist: "Widespread Panic", title: "20 Pickin' Up The Pieces" },
-      url: "https://drive.google.com/uc?export=download&id=FILE_ID_20_PICKIN_UP_THE_PIECES"
-    }
-  ];
+  <!-- Homepage content -->
+  <div id="homepage">
+    <h1>Welcome to Lane's Surf & Panic World</h1>
+    <p>Explore retro chaos, surfing vibes, and your favorite jams.</p>
 
-  const webamp = new Webamp({ initialTracks: tracks });
-  webamp.renderWhenReady(document.getElementById("webamp-container"));
-</script>
+    <!-- Webamp player -->
+    <div id="webamp-container"></div>
+  </div>
+
+  <!-- Webamp JS -->
+  <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
+
+  <script>
+    // Webamp tracks
+    const tracks = [
+      { metaData: { artist: "Widespread Panic", title: "02 Disco" }, url: "music/02_Disco.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "03 Wondering" }, url: "music/03_Wondering.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "04 Greta" }, url: "music/04_Greta.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "07 I'm Not Alone" }, url: "music/07_Im_Not_Alone.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "14 Jack" }, url: "music/14_Jack.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "15 Suprise Valley" }, url: "music/15_Suprise_Valley.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "16 Papa's Home" }, url: "music/16_Papas_Home.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "18 Tie Your Shoes" }, url: "music/18_Tie_Your_Shoes.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "19 Papa's Home" }, url: "music/19_Papas_Home.mp3" },
+      { metaData: { artist: "Widespread Panic", title: "20 Pickin' Up The Pieces" }, url: "music/20_Pickin_Up_The_Pieces.mp3" }
+    ];
+
+    const webamp = new Webamp({ initialTracks: tracks });
+    webamp.renderWhenReady(document.getElementById("webamp-container"));
+
+    // Intro fade logic
+    setTimeout(() => {
+      const intro = document.getElementById('tv-intro');
+      intro.classList.add('fade-out');
+      // show homepage after intro fades
+      intro.addEventListener('animationend', () => {
+        document.getElementById('homepage').style.display = 'block';
+      });
+    }, 4000); // intro lasts 4 seconds
+  </script>
 
 </body>
 </html>
+
 
 
 
