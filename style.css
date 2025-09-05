@@ -4,7 +4,116 @@ body {
   background: linear-gradient(135deg, #1e2d3b 0%, #203a43 60%, #2c5364 100%);
   color: #fafaff;
   font-family: 'VT323', 'Share Tech Mono', monospace;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+/* Sections container holds all screens vertically */
+#container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+/* Each screen is full viewport height with snap */
+.screen {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fafaff;
+  user-select: none;
+  padding: 10px 20px;
+  box-sizing: border-box;
   text-align: center;
+  position: relative;
+}
+
+/* Home section - vibrant trippy background */
+.home {
+  background:
+    radial-gradient(circle at center, #ff0077 0%, #49007a 100%);
+  filter: contrast(1.2);
+}
+.home .title {
+  font-size: 3.6rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px #0008;
+  letter-spacing: 4px;
+}
+.home .subtitle {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: #ffaaff;
+  text-shadow: 1px 1px 3px #5a005a;
+}
+
+/* Underwater section */
+.underwater {
+  background: linear-gradient(180deg, #005f99 0%, #002733 100%);
+  position: relative;
+}
+.underwater h2 {
+  margin-bottom: 20px;
+  color: #a0eaff;
+  text-shadow: 1px 1px 3px #004466;
+}
+.gif-container img {
+  max-width: 160px;
+  margin: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 0 18px #00ffffaa;
+  border: 2px solid #00ffffbb;
+}
+
+/* Jungle section */
+.jungle {
+  background: linear-gradient(180deg, #2a5f35 0%, #112109 100%);
+}
+.jungle h2 {
+  margin-bottom: 20px;
+  color: #b4ff90;
+  text-shadow: 1px 1px 3px #0a3b00;
+}
+
+/* Farm section */
+.farm {
+  background: linear-gradient(180deg, #5e4a12 0%, #3b2f03 100%);
+}
+.farm h2 {
+  margin-bottom: 20px;
+  color: #ffdb6b;
+  text-shadow: 1px 1px 4px #5a4a00;
+}
+
+/* Navigation bar */
+#quick-nav {
+  position: fixed;
+  top: 8px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+}
+#quick-nav button {
+  background: linear-gradient(135deg, #ff3c78, #89105a);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 8px 14px;
+  font-size: 1.1rem;
+  box-shadow: 0 0 8px #ff0066;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+#quick-nav button:hover {
+  background: linear-gradient(135deg, #ff77a8, #b36181);
 }
 
 /* TV Turn-On Intro Overlay */
@@ -37,15 +146,24 @@ body {
   animation: tv-glow-anim 1s ease 0.7s forwards;
 }
 .tv-text {
-  font-size: 2rem;
+  font-size: 2.8rem;
   color: #05ffb8;
   font-family: 'Share Tech Mono', monospace;
   text-shadow: 0 0 15px #0ff, 0 0 8px #fff;
-  letter-spacing: 6px;
+  letter-spacing: 7px;
   opacity: 0.97;
   animation: tv-text-fade 0.7s cubic-bezier(0.8,0,0.6,1) 1s forwards;
 }
-
+.surf-wave {
+  position: absolute;
+  bottom: 20%;
+  width: 100%;
+  height: 8rem;
+  background: repeating-radial-gradient(circle at bottom center, #2ec6ff44 3%, transparent 10%);
+  animation: wave-move 1.5s linear infinite alternate;
+  z-index: 1;
+}
+/* Animations */
 @keyframes tv-flash-anim {
   0% { opacity: 0;}
   10% { opacity: 0.88; height: 2vh;}
@@ -65,131 +183,28 @@ body {
 @keyframes tv-fadeout {
   to { opacity: 0; visibility: hidden; pointer-events: none;}
 }
-
-/* Header */
-header {
-  padding: 22px 0;
-  background: #161822;
-  border-bottom: 3px solid #00fff7;
-}
-header h1 {
-  font-size: 2.3rem;
-  color: #00ff9c;
-  text-shadow: 1px 1px 0 #fa24a7, 2px 2px 0 #000;
-  letter-spacing: 2px;
-}
-header .tagline {
-  display: block;
-  font-style: italic;
-  color: #ffea00;
-  margin-top: 8px;
-}
-/* Navigation */
-nav {
-  margin: 18px 0;
-}
-nav a {
-  color: #00fff7;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-  font-family: 'Share Tech Mono', monospace;
-  border-bottom: 2px dashed transparent;
-  transition: color 0.2s, border-bottom 0.2s;
-}
-nav a:hover {
-  color: #fa24a7;
-  border-bottom: 2px dashed #fa24a7;
+@keyframes wave-move {
+  0% {background-position: 0 0;}
+  100% {background-position: 80px 0;}
 }
 
-/* Section */
-section {
-  margin: 38px auto;
-  padding: 18px;
-  border: 2px solid #00fff7;
-  border-radius: 10px;
-  width: 74%;
-  background: rgba(23,29,38,0.8);
-}
-
-/* GIF Zone */
-.gif-zone img {
-  margin: 12px;
-  max-width: 135px;
-  border: 2px solid #fa24a7;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px #00fff7;
-}
-
-/* Footer */
-footer {
-  margin-top: 58px;
-  padding: 12px;
-  background: #161822;
-  font-size: 0.88rem;
-  color: #cccccc;
-}
-footer a {
-  color: #00ff9c;
-  text-decoration: none;
-  font-family: 'Share Tech Mono', monospace;
-}
-footer a:hover {
-  color: #fa24a7;
-}
-
-/* Draggable Window */
-.window {
-  position: absolute;
-  top: 120px;
-  left: 120px;
-  width: 310px;
-  border: 3px solid #00fff7;
-  border-radius: 8px;
-  background: rgba(22,34,44,0.97);
-  color: #00ff9c;
-  font-family: 'VT323', monospace;
-  box-shadow: 8px 8px 0 #fa24a7;
-  z-index: 10;
-}
-.window .title-bar {
-  background: #00fff7;
-  color: #1e2d3b;
-  padding: 9px 10px 7px 15px;
-  cursor: move;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.2em;
+/* GIF Container styling */
+.gif-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 7px 7px 0 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
-.window .content {
-  padding: 15px;
-  background: transparent;
-  font-size: 1.2em;
-}
-.window button {
-  background: #fa24a7;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.2em;
-  padding: 2px 10px;
-  margin-left: 18px;
-  box-shadow: 1px 1px 3px #1e2d3b;
-  transition: background .15s;
-}
-.window button:hover {
-  background: #00ff9c;
-  color: #161822;
+.gif-container img {
+  max-width: 180px;
+  border-radius: 14px;
+  box-shadow: 0 0 18px #00ffffaa;
+  border: 3px solid #00ffffbb;
+  user-select: none;
 }
 
-/* Marquee */
-marquee {
-  font-size: 1.18rem;
-  color: #fa24a7;
-  text-shadow: 1px 2px #00fff7;
-  margin-bottom: 20px;
+h1, h2 {
+  user-select: none;
 }
+
+
