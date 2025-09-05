@@ -23,33 +23,29 @@
 </head>
 <body>
 
-  <!-- Webamp container -->
- <div id="webamp-container" style="width:400px; height:400px; position: fixed; bottom: 20px; right: 20px;"></div>
+  <div id="webamp-container"></div>
 
   <!-- Webamp JS -->
   <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
-    // List all your songs from the zip here
     const songFiles = [
-      "02 Disco.mp3",
-      "03 Wondering.mp3",
-      "Song3.mp3"
-      // Add all filenames from your Widespread Panic zip
+      "02-Disco.mp3",
+      "03-Wondering.mp3",
+      "04-Greta.mp3"
     ];
 
-    // Create Webamp tracks
     const initialTracks = songFiles.map(file => ({
-      metaData: { artist: "Widespread Panic", title: "Disco" },
-      url: 02-Disco.mp3}`
+      metaData: { artist: "Widespread Panic", title: 02-Disco.mp3(".mp3","") },
+      url: `music/${file}`
     }));
 
-    // Initialize Webamp
     const webamp = new Webamp({ initialTracks });
     webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
 
 
 
