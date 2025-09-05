@@ -1,13 +1,12 @@
-// Insert TV screen elements
 const screen = document.getElementById('screen');
 
-// GIF/video inside screen
+// Make sure the path is correct:
 const screenContent = document.createElement('img'); 
-screenContent.src = 'occy.gif'; // <-- Your GIF here
+screenContent.src = 'occy.gif';  // <-- Must be in same folder or correct path
 screenContent.classList.add('screen-content');
 screen.appendChild(screenContent);
 
-// CRT overlays
+// Add overlays
 const vignette = document.createElement('div');
 vignette.classList.add('vignette');
 screen.appendChild(vignette);
@@ -16,7 +15,7 @@ const scanlines = document.createElement('div');
 scanlines.classList.add('scanlines');
 screen.appendChild(scanlines);
 
-// Initialize Webamp
+// Webamp setup
 const songFiles = [
   "02 Disco.mp3",
   "03 Wondering.mp3",
