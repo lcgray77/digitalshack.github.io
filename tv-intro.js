@@ -64,7 +64,7 @@ const tvScreen = document.getElementById("screen");
 tvScreen.classList.add("tv-on");
 
 // Add your GIF/video here
-screen.add("image", { src: "https://media.giphy.com/media/xT9IgIc0lryrxvqVGM/giphy.gif", blur: 1.2 });
+screen.add("image", { src: "occy.gif", blur: 1.2 });
 screen.add("scanlines");
 screen.add("vignette");
 
@@ -83,3 +83,4 @@ const initialTracks = songFiles.map(file => ({
 
 const webamp = new Webamp({ initialTracks });
 webamp.renderWhenReady(document.getElementById("webamp-container"));
+
