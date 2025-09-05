@@ -1,70 +1,81 @@
-/* Full-screen intro overlay */
-#tv-intro {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-  overflow:hidden;
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  overflow: hidden;
 }
 
-/* TV frame */
-.tv-frame {
-  width: 480px;
+#screen {
+  width: 640px;
   height: 360px;
-  border: 20px solid #222;
-  border-radius: 10px;
-  box-shadow: 0 0 60px #0f0 inset;
-  background: black;
   position: relative;
   overflow: hidden;
-  transform: scale(1.05) rotate(0.2deg); /* slight tilt/fisheye effect */
+  background-color: #000;
+  border: 12px solid #333;
+  box-shadow: 0 0 80px #00ffcc, 0 0 120px #00ffcc inset;
+  opacity: 0;
+  transform: scale(0.8);
 }
 
-/* TV screen GIF */
-.tv-screen {
+.screen-container {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  animation: flicker 0.08s infinite alternate;
-  filter: contrast(1.3) brightness(1.2) blur(0.7px);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Scanline overlay for old CRT effect */
+.screen-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.vignette {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png');
+  background-size: 100% 100%;
+  z-index: 1000;
+  pointer-events: none;
+}
+
 .scanlines {
   position: absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: repeating-linear-gradient(
-    rgba(0,0,0,0.1) 0px,
-    rgba(0,0,0,0.1) 1px,
-    transparent 1px,
+    0deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.05) 1px,
+    transparent 2px,
     transparent 2px
   );
-  pointer-events:none;
+  z-index: 999;
+  pointer-events: none;
 }
 
-/* Flicker animation */
-@keyframes flicker {
-  0% { opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { opacity: 0.85; }
+#webamp-container {
+  width: 400px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2000;
 }
 
-/* Fade out intro */
-.fade-out {
-  animation: fadeOut 2s forwards;
+/* TV turn-on animation */
+@keyframes tvOn {
+  0% { opacity: 0; transform: scale(0.2) skew(10deg, 10deg); filter: brightness(10); }
+  30% { opacity: 1; transform: scale(1.2, 0.6) skew(-5deg,5deg); filter: brightness(10); }
+  50% { transform: scale(1,1) skew(0deg,0deg); filter: brightness(2); }
+  100% { opacity: 1; transform: scale(1,1) skew(0,0); filter: brightness(1); }
 }
 
-@keyframes fadeOut {
-  to { opacity:0; visibility:hidden; }
+.tv-on {
+  animation: tvOn 2s forwards;
 }
 
 
