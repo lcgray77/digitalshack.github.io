@@ -3,44 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lane’s Surf Shack</title>
+  <title>Lane’s Digital Shack</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face {
+      font-family: "PixelFont";
+      src: url("fonts/pixel-font.ttf") format("truetype");
+    }
+    body {
+      font-family: "PixelFont", sans-serif;
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
   <header>
-    <h1>🏄 Welcome to Lane’s Surf Shack 🌊</h1>
-    <p class="tagline">A chill corner of the web for waves, vibes, and random chaos</p>
+    <h1>🖥️ Welcome to Lane’s Digital Shack 💾</h1>
+    <p class="tagline">A retro haven for creativity and chaos</p>
   </header>
 
   <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
-    <a href="pages/gardening.html">Gardening</a>
-    <a href="pages/fishing.html">Fishing</a>
-    <a href="pages/surfing.html">Surfing</a>
+    <a href="pages/blog.html">Blog</a>
+    <a href="pages/gallery.html">Gallery</a>
+    <a href="pages/about.html">About</a>
   </nav>
 
   <!-- Main Content -->
   <main>
     <section class="intro">
-      <h2>✨ Current Vibe ✨</h2>
-      <p>This site is under heavy construction 🚧 (like every classic 90s page). Check back often for random GIFs, surf stories, and experiments.</p>
+      <h2>🌟 Welcome to the Past 🌟</h2>
+      <p>Step into a world of pixelated nostalgia, where every corner is filled with GIFs, stories, and experiments.</p>
     </section>
 
-    <!-- Placeholder for Winamp/music player -->
-    <section class="music">
-      <h2>🎶 Tune of the Moment 🎶</h2>
-      <audio controls>
-        <source src="music/sample.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <p>(Future upgrade: embed a retro Winamp-style player 🎛️)</p>
+    <!-- Draggable Window -->
+    <section class="window">
+      <div class="title-bar">
+        <span>My Retro Window</span>
+        <button onclick="closeWindow()">X</button>
+      </div>
+      <div class="content">
+        <p>This is a draggable window. Move it around and have fun!</p>
+      </div>
     </section>
 
     <!-- GIF Zone -->
     <section class="gif-zone">
       <h2>🔥 Cool GIF Zone 🔥</h2>
+      <marquee behavior="alternate" scrollamount="10">✨ Welcome to the GIF Zone! ✨</marquee>
       <img src="images/under_construction.gif" alt="Under Construction">
       <img src="images/surfing.gif" alt="Surf GIF">
       <img src="images/trippy.gif" alt="Trippy pattern">
@@ -49,8 +60,14 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 Lane Gray | Hosted on GitHub Pages | <a href="https://neocities.org">Inspired by Neocities</a></p>
+    <p>© 2025 Lane Gray | <a href="https://neocities.org">Inspired by Neocities</a></p>
   </footer>
+
+  <script>
+    function closeWindow() {
+      document.querySelector('.window').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
 

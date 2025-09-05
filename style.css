@@ -71,4 +71,43 @@ body {
   footer a:hover {
     color: magenta;
   }
-  
+
+  /* Draggable Window */
+  .window {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 300px;
+    border: 4px solid cyan;
+    background: black;
+    color: lime;
+    font-family: "PixelFont", sans-serif;
+    box-shadow: 5px 5px 0 magenta;
+    z-index: 10;
+  }
+  .window .title-bar {
+    background: cyan;
+    color: black;
+    padding: 5px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .window .content {
+    padding: 10px;
+  }
+  .window button {
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Marquee */
+  marquee {
+    font-size: 1.2rem;
+    color: magenta;
+    text-shadow: 1px 1px cyan;
+  }
+
