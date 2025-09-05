@@ -28,23 +28,35 @@
   <!-- Webamp JS -->
   <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
+    // List of songs exactly as they are named in the music folder
     const songFiles = [
-      "02-Disco.mp3",
-      "03-Wondering.mp3",
-      "04-Greta.mp3"
+      "02 Disco.mp3",
+      "03 Wondering.mp3",
+      "04 Greta.mp3",
+      "07 I'm Not Alone.mp3",
+      "14 Jack.mp3",
+      "15 Suprise Valley.mp3",
+      "16 Papa's Home.mp3",
+      "18 Tie Your Shoes.mp3",
+      "19 Papa's Home.mp3",
+      "20 Pickin' Up The Pieces.mp3",
     ];
 
+    // Create Webamp tracks with proper titles and URLs
     const initialTracks = songFiles.map(file => ({
-      metaData: { artist: "Widespread Panic", title: 02-Disco.mp3(".mp3","") },
-      url: `02 Disco`
+      metaData: { artist: "Widespread Panic", title: file.replace(".mp3","") },
+      url: `music/${file}`
     }));
 
+    // Initialize Webamp
     const webamp = new Webamp({ initialTracks });
     webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
+
 
 
 
