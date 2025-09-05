@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <title>Lane's Widespread Panic Webamp</title>
 
-  <!-- Optional Webamp CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/webamp@^2/dist/webamp.min.css">
+  <!-- Webamp CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.css">
 
   <style>
     body {
       margin: 0;
       background: black;
-      color: white;
     }
     #webamp-container {
       width: 400px;
@@ -28,28 +27,31 @@
   <div id="webamp-container"></div>
 
   <!-- Webamp JS -->
-  <script src="https://unpkg.com/webamp@^2/dist/webamp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
-    // Automatically load all your Widespread Panic songs
-    // Make sure the files are in a folder called "music" next to this HTML
+    // List all your songs from the zip here
     const songFiles = [
       "Song1.mp3",
       "Song2.mp3",
       "Song3.mp3"
-      // Add all filenames from your zip here
+      // Add all filenames from your Widespread Panic zip
     ];
 
+    // Create Webamp tracks
     const initialTracks = songFiles.map(file => ({
       metaData: { artist: "Widespread Panic", title: file.replace(".mp3","") },
       url: `music/${file}`
     }));
 
+    // Initialize Webamp
     const webamp = new Webamp({ initialTracks });
     webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
+
 
 
 
