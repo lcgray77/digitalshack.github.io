@@ -2,154 +2,189 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lane's Panic & Surf World</title>
+  <title>Panic Retro TV</title>
 
   <!-- Webamp CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.css">
 
   <style>
-    /* General page styles */
     body {
       margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       background: black;
-      font-family: 'Courier New', monospace;
-      color: #0f0;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* Intro overlay */
-    #tv-intro {
-      position: fixed;
-      top:0;
-      left:0;
-      width:100vw;
-      height:100vh;
-      background:black;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .tv-frame {
-      width: 480px;
+    /* TV Screen */
+    #screen {
+      width: 640px;
       height: 360px;
-      border: 20px solid #222;
-      border-radius: 10px;
-      box-shadow: 0 0 60px #0f0 inset;
-      background: black;
       position: relative;
       overflow: hidden;
-      transform: scale(1.05) rotate(0.2deg); /* slight tilt/fisheye effect */
+      background-color: #000;
+      border: 10px solid #333;
+      box-shadow: 0 0 60px #00ffcc, 0 0 100px #00ffcc inset;
     }
 
-    .tv-screen {
+    .screen-container {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      animation: flicker 0.08s infinite alternate;
-      filter: contrast(1.3) brightness(1.2) blur(0.7px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .screen-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Effects */
+    .vignette {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png');
+      background-size: 100% 100%;
+      z-index: 1000;
+      pointer-events: none;
     }
 
     .scanlines {
       position: absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: repeating-linear-gradient(
-        rgba(0,0,0,0.1) 0px,
-        rgba(0,0,0,0.1) 1px,
-        transparent 1px,
+        0deg,
+        rgba(255,255,255,0.05),
+        rgba(255,255,255,0.05) 1px,
+        transparent 2px,
         transparent 2px
       );
-      pointer-events:none;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 0.8; }
-      50% { opacity: 1; }
-      100% { opacity: 0.85; }
-    }
-
-    .fade-out {
-      animation: fadeOut 2s forwards;
-    }
-
-    @keyframes fadeOut {
-      to { opacity:0; visibility:hidden; }
-    }
-
-    /* Homepage container */
-    #homepage {
-      display: none; /* hidden initially under intro */
-      padding: 20px;
+      z-index: 999;
+      pointer-events: none;
     }
 
     /* Webamp container */
     #webamp-container {
+      width: 400px;
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 400px;
-      height: 400px;
+      z-index: 2000;
     }
   </style>
 </head>
 <body>
 
-  <!-- Retro TV Intro -->
-  <div id="tv-intro">
-    <div class="tv-frame">
-      <img src="your-tv-gif.gif" alt="Retro TV" class="tv-screen">
-      <div class="scanlines"></div>
-    </div>
-  </div>
+  <!-- TV Screen -->
+  <div id="screen"></div>
 
-  <!-- Homepage content -->
-  <div id="homepage">
-    <h1>Welcome to Lane's Surf & Panic World</h1>
-    <p>Explore retro chaos, surfing vibes, and your favorite jams.</p>
+  <!-- Webamp Player -->
+  <div id="webamp-container"></div>
 
-    <!-- Webamp player -->
-    <div id="webamp-container"></div>
-  </div>
-
-  <!-- Webamp JS -->
+  <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
 
+  <!-- TV Effects JS -->
   <script>
-    // Webamp tracks
-    const tracks = [
-      { metaData: { artist: "Widespread Panic", title: "02 Disco" }, url: "music/02_Disco.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "03 Wondering" }, url: "music/03_Wondering.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "04 Greta" }, url: "music/04_Greta.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "07 I'm Not Alone" }, url: "music/07_Im_Not_Alone.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "14 Jack" }, url: "music/14_Jack.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "15 Suprise Valley" }, url: "music/15_Suprise_Valley.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "16 Papa's Home" }, url: "music/16_Papas_Home.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "18 Tie Your Shoes" }, url: "music/18_Tie_Your_Shoes.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "19 Papa's Home" }, url: "music/19_Papas_Home.mp3" },
-      { metaData: { artist: "Widespread Panic", title: "20 Pickin' Up The Pieces" }, url: "music/20_Pickin_Up_The_Pieces.mp3" }
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    class ScreenEffect {
+      constructor(parent) {
+        this.parent = typeof parent === "string" ? document.querySelector(parent) : parent;
+        this.effects = {};
+        this.render();
+      }
+
+      render() {
+        const container = document.createElement("div");
+        container.classList.add("screen-container");
+
+        const wrapper1 = document.createElement("div");
+        wrapper1.classList.add("screen-wrapper");
+
+        const wrapper2 = document.createElement("div");
+        wrapper2.classList.add("screen-wrapper");
+
+        wrapper1.appendChild(wrapper2);
+        container.appendChild(wrapper1);
+
+        this.parent.appendChild(container);
+        this.nodes = { container, wrapper1, wrapper2 };
+      }
+
+      add(type, options = {}) {
+        let node;
+        switch(type) {
+          case "image":
+            node = document.createElement("img");
+            node.src = options.src;
+            node.style.width = "100%";
+            node.style.height = "100%";
+            node.style.filter = `blur(${options.blur || 0}px)`;
+            this.nodes.wrapper2.appendChild(node);
+            break;
+          case "video":
+            node = document.createElement("video");
+            node.src = options.src;
+            node.autoplay = true;
+            node.loop = true;
+            node.muted = true;
+            node.style.width = "100%";
+            node.style.height = "100%";
+            node.style.filter = `blur(${options.blur || 0}px)`;
+            this.nodes.wrapper2.appendChild(node);
+            break;
+          case "vignette":
+            node = document.createElement("div");
+            node.classList.add("vignette");
+            this.nodes.container.appendChild(node);
+            break;
+          case "scanlines":
+            node = document.createElement("div");
+            node.classList.add("scanlines");
+            this.nodes.wrapper2.appendChild(node);
+            break;
+        }
+        this.effects[type] = { node, enabled: true };
+      }
+    }
+
+    // Initialize screen and effects
+    const screen = new ScreenEffect("#screen");
+    screen.add("image", { src: "https://media.giphy.com/media/xT9IgIc0lryrxvqVGM/giphy.gif", blur: 1.2 });
+    screen.add("scanlines");
+    screen.add("vignette");
+  </script>
+
+  <!-- Webamp Player JS -->
+  <script>
+    const songFiles = [
+      "https://your-domain.com/music/02_Disco.mp3",
+      "https://your-domain.com/music/03_Wondering.mp3",
+      "https://your-domain.com/music/04_Greta.mp3"
+      // Add all your songs here
     ];
 
-    const webamp = new Webamp({ initialTracks: tracks });
-    webamp.renderWhenReady(document.getElementById("webamp-container"));
+    const initialTracks = songFiles.map(file => ({
+      metaData: { artist: "Widespread Panic", title: file.split("/").pop().replace(".mp3","") },
+      url: file
+    }));
 
-    // Intro fade logic
-    setTimeout(() => {
-      const intro = document.getElementById('tv-intro');
-      intro.classList.add('fade-out');
-      // show homepage after intro fades
-      intro.addEventListener('animationend', () => {
-        document.getElementById('homepage').style.display = 'block';
-      });
-    }, 4000); // intro lasts 4 seconds
+    const webamp = new Webamp({ initialTracks });
+    webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
+
 
 
 
