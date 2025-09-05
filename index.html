@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lane's Widespread Panic Webamp</title>
+  <title>Panic Webamp</title>
 
   <!-- Webamp CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.css">
@@ -24,14 +24,14 @@
 <body>
 
   <!-- Webamp container -->
-  <div id="webamp-container"></div>
+ <div id="webamp-container" style="width:400px; height:400px; position: fixed; bottom: 20px; right: 20px;"></div>
 
   <!-- Webamp JS -->
   <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
     // List all your songs from the zip here
     const songFiles = [
-      "Song1.mp3",
+      "02-Disco.mp3",
       "Song2.mp3",
       "Song3.mp3"
       // Add all filenames from your Widespread Panic zip
@@ -39,8 +39,8 @@
 
     // Create Webamp tracks
     const initialTracks = songFiles.map(file => ({
-      metaData: { artist: "Widespread Panic", title: file.replace(".mp3","") },
-      url: `music/${file}`
+      metaData: { artist: "Widespread Panic", title: "Disco" },
+      url: 02-Disco.mp3}`
     }));
 
     // Initialize Webamp
@@ -50,6 +50,7 @@
 
 </body>
 </html>
+
 
 
 
