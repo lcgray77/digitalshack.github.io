@@ -2,20 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lane's Surf Page</title>
-
-  <!-- Webamp CSS from unpkg -->
-  <link rel="stylesheet" href="https://unpkg.com/webamp@^2/dist/webamp.min.css">
-<<<<<<< HEAD
-
+  <title>Panic Webamp</title>
   <style>
     body {
       margin: 0;
       background: black;
-      color: white;
     }
-    /* Position Webamp player */
-    #webamp {
+    #webamp-container {
       width: 400px;
       height: 400px;
       position: fixed;
@@ -23,37 +16,49 @@
       right: 20px;
     }
   </style>
-=======
->>>>>>> 636b3f2aa9df769cf1736f4eebc5ecd228f411d2
 </head>
 <body>
 
-  <!-- Webamp container -->
-  <div id="webamp"></div>
+  <div id="webamp-container"></div>
 
-  <!-- Webamp JS from unpkg -->
-  <script src="https://unpkg.com/webamp@^2/dist/webamp.min.js"></script>
-
+  <!-- Webamp JS -->
+  <script src="https://cdn.jsdelivr.net/npm/webamp@2.2.0/built/webamp.bundle.min.js"></script>
   <script>
-    // Initialize Webamp
-    const webamp = new Webamp({
-      initialTracks: [
-        {
-          metaData: { artist: "Lane Gray", title: "Rad Surf Jam" },
-<<<<<<< HEAD
-          url: "music/rad_song.mp3"  // Put your music file in a 'music' folder
-=======
-          url: "music/rad_song.mp3"  // Replace with your music file path
->>>>>>> 636b3f2aa9df769cf1736f4eebc5ecd228f411d2
-        }
-      ]
-    });
+    const songFiles = [
+      "02 Disco.mp3",
+      "03 Wondering.mp3",
+      "04 Greta.mp3",
+      "07 I'm Not Alone.mp3",
+      "14 Jack.mp3",
+      "15 Suprise Valley.mp3",
+      "16 Papa's Home.mp3",
+      "18 Tie Your Shoes.mp3",
+      "19 Papa's Home.mp3",
+      "20 Pickin' Up The Pieces.mp3"
+    ];
 
-    webamp.renderWhenReady(document.getElementById("webamp"));
+    const initialTracks = songFiles.map(file => ({
+      metaData: { artist: "Widespread Panic", title: file.replace(".mp3","") },
+      url: `music/${file}`
+    }));
+
+    const webamp = new Webamp({ initialTracks });
+    webamp.renderWhenReady(document.getElementById("webamp-container"));
   </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
