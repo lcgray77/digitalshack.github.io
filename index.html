@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Surf Core Journey</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Lane's Surf Page</title>
+
+  <!-- Webamp CSS from unpkg -->
+  <link rel="stylesheet" href="https://unpkg.com/webamp@^2/dist/webamp.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+    }
+    /* Position Webamp player */
+    #webamp {
+      width: 400px;
+      height: 400px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Empty canvas for gifs and content -->
-  <div id="canvas"></div>
+
+  <!-- Webamp container -->
+  <div id="webamp"></div>
+
+  <!-- Webamp JS from unpkg -->
+  <script src="https://unpkg.com/webamp@^2/dist/webamp.min.js"></script>
+
+  <script>
+    // Initialize Webamp
+    const webamp = new Webamp({
+      initialTracks: [
+        {
+          metaData: { artist: "Lane Gray", title: "Rad Surf Jam" },
+          url: "music/rad_song.mp3"  // Put your music file in a 'music' folder
+        }
+      ]
+    });
+
+    webamp.renderWhenReady(document.getElementById("webamp"));
+  </script>
+
 </body>
 </html>
 
